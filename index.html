@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Recognition App</title>
+</head>
+<body>
+    <h1>Speech Recognition App</h1>
+    <button id="startButton">Start Recording</button>
+    <div id="result"></div>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const resultDiv = document.getElementById('result');
+
+        startButton.addEventListener('click', () => {
+            resultDiv.innerHTML = 'Processing...';
+            fetch('/process_audio', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.innerHTML = `<p>ChatBOT Response: ${data.chat_result}</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
